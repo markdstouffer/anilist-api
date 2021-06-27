@@ -1,21 +1,24 @@
 import React from 'react'
 
-const Activity = ({activity}) => {
-  if (activity.progress) {
-    if (activity.progress.includes('-')) {
-      return (
-        <p key={activity.id}>{activity.status}: {activity.media.title.romaji} episodes: {activity.progress}</p>
-      )
+export const Activity = ({activity}) => {
+  if (activity) {
+    if (activity.progress) {
+      if (activity.progress.includes('-')) {
+        return (
+          <div key={activity.id}>{activity.status}: {activity.media.title.romaji} episodes: {activity.progress}</div>
+        )
+      } else {
+        return (
+          <div key={activity.id}>{activity.status}: {activity.media.title.romaji} episode: {activity.progress}</div>
+        )
+      }
     } else {
       return (
-        <p key={activity.id}>{activity.status}: {activity.media.title.romaji} episode: {activity.progress}</p>
+        <div key={activity.id}>{activity.status}: {activity.media.title.romaji} </div>
       )
     }
-  } else {
-    return (
-      <p key={activity.id}>{activity.status}: {activity.media.title.romaji} </p>
-    )
   }
+  return <div>no recent activities</div>
 }
 const Activities = ({activities}) => {
   return (

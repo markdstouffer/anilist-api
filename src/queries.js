@@ -3,6 +3,7 @@ import { gql } from '@apollo/client'
 export const GET_USERINFO = gql`
 query ($name: String) {
   User (name: $name) {
+    siteUrl
     name
     id
     statistics {
@@ -15,6 +16,7 @@ query ($name: String) {
     }
     avatar {
       large
+      medium
     }
   }
 }

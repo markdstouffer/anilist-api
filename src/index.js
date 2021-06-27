@@ -1,6 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
+import { Provider } from 'react-redux'
+import store from './store'
 
 import { 
   ApolloClient, ApolloProvider, HttpLink, InMemoryCache
@@ -26,7 +28,9 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </ApolloProvider>,
   document.getElementById('root')
 )

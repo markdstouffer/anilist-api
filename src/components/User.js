@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useLazyQuery } from '@apollo/client'
 import { GET_USERINFO, GET_ACTIVITY } from '../queries'
+import { useDispatch } from 'react-redux'
+import { addFollowing } from '../reducers/followingReducer'
 //components
 import Activities from './Activities'
 
 const User = () => {
+  const dispatch = useDispatch()
   const [name, setName] = useState('')
 
   const [user, setUser] = useState(null)
@@ -47,13 +50,18 @@ const User = () => {
 
   if (user && activity) {
     const activities = activity.Page.activities
+    const userWithActivity = {
+      user: user,
+      activity: activities
+    }
     return (
       <div>
-        <h1>{user.name}</h1>
+        <h1><a href={user.siteUrl}>{user.name}</a></h1>
         <img src={user.avatar.large} alt="profile pic" />
         <p>{user.name} has watched <strong>{user.statistics.anime.count}</strong> anime, 
           totalling <em>{user.statistics.anime.minutesWatched}</em> minutes of anime watched!</p>
         <Activities activities={activities} />
+        <button onClick={() => {dispatch(addFollowing(userWithActivity))}}>follow</button>
         <button onClick={() => {
           setName('')
           setUser(null)
